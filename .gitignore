@@ -2,3 +2,7 @@
 Bin/
 Lib/
 Params/
+
+# Ignore file types
+*.prm
+*.o
