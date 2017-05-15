@@ -81,8 +81,8 @@ const float source_dz_per_view
 		}
 		else
 		{
-			ww = abs(qhat2) / (abs(qhat) + abs(qhat2));
-			ww2 = abs(qhat) / (abs(qhat) + abs(qhat2));
+			ww = -qhat2 / (phat - qhat2);
+			ww2 = qhat / (qhat - qhat2);
 		}
 		float addition1 = tex3D(proj_par, p_idx + 0.5f, q_idx + 0.5f, ia + 0.5f)*ww;
 		float addition2 = tex3D(proj_par, p_idx2 + 0.5f, q_idx2 + 0.5f, ia2 + 0.5f)*ww2;
