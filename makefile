@@ -5,12 +5,14 @@ INCLUDE=./Include/
 SRC=./Src/
 CUDA=./CUDA/
 
-CFLAGS=-I./Include/ -I/usr/local/cuda/include/ -c
+CFLAGS=-I./Include/ -I/usr/local/cuda/include/ -c -O2
 
 objects = Lib/main.o Lib/Common.o Lib/DataReader.o Lib/DataStructs.o \
 Lib/FileParams.o Lib/Filter.o Lib/ImageWriter.o Lib/Reconstructor.o \
 Lib/ReconstructorAbstractFactory.o Lib/Backprojector.cu.o \
 Lib/Filter.cu.o Lib/Rebiner.cu.o
+
+PTXS = PTX/Backprojector.ptx PTX/Filter.ptx PTX/Rebiner.ptx
 
 Bin/LISTCTRecons : $(objects)
 	$(NVCC) -Xcompiler -fopenmp -lm -L/usr/local/cuda/lib64 -lcudart -o Bin/LISTCTRecons $(objects)
@@ -43,13 +45,16 @@ Lib/ReconstructorAbstractFactory.o : $(SRC)ReconstructorAbstractFactory.cpp
 	$(CC) $(CFLAGS) $^ -o $@
 
 Lib/Backprojector.cu.o : $(CUDA)Backprojector.cu
+	$(NVCC) $(CFLAGS) --ptx $^ -o PTX/Backprojector.ptx
 	$(NVCC) $(CFLAGS) $^ -o $@
 
 Lib/Filter.cu.o : $(CUDA)Filter.cu
+	$(NVCC) $(CFLAGS) --ptx $^ -o PTX/Filter.ptx
 	$(NVCC) $(CFLAGS) $^ -o $@
 
 Lib/Rebiner.cu.o : $(CUDA)Rebiner.cu
+	$(NVCC) $(CFLAGS) --ptx $^ -o PTX/Rebiner.ptx
 	$(NVCC) $(CFLAGS) $^ -o $@
 
 clean:
-	rm Bin/LISTCTRecons $(objects)
+	rm Bin/LISTCTRecons $(objects) $(PTXS)

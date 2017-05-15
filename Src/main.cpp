@@ -7,12 +7,19 @@
 #include <fstream>
 using namespace std;
 
-int main()
+int main(int argc, char **argv)
 {
 	//log_file.open("recons.log", ios::app);
-	cout << "Parameter file name:";
+	/*cout << "Parameter file name:";
 	string prmFile;
-	cin >> prmFile;
+	cin >> prmFile;*/
+    if(argc < 2)
+    {
+        cout<<"Usage LISTCTRecons <PRM filename>"<<endl;
+        return 1;
+    }
+    string prmFile = argv[1];
+
 
 	cout << "Reading prm file..." << endl;
 	FileParams *fp = new FileParams(prmFile);
