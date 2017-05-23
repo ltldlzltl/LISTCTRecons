@@ -6,3 +6,5 @@ Params/
 # Ignore file types
 *.prm
 *.o
+*.cproject
+*.project
