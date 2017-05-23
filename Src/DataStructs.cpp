@@ -120,7 +120,7 @@ ReconData::~ReconData()
 
 void ReconData::convert_from_file_params(const FileParams &fp)
 {
-	int addProjections = fp.ns()*fp.ds()*fp.n_proj_turn() / (4.0f*fp.r_src_to_det()*PI) + 10;
+	int addProjections = max(fp.central_channel(), fp.ns()-fp.central_channel())*fp.ds()*fp.n_proj_turn() / (2.0f*fp.r_src_to_iso()*PI) + 10;
 
 	// Allocate memory
 	float *tubeAngles = new float[fp.readings()];
@@ -239,7 +239,7 @@ void ReconData::convert_from_file_params(const FileParams &fp)
 	int nAngleAdd = blockProjEnd - blockProjStart + 100;
 	int nAngle = nAngleAdd - 2 * addProjections;
 
-	this->ctg = new CTGeom(orbit, orbitStart, fp.ns(), fp.nt(), nAngle, nAngleAdd, fp.ds(), fp.dt(), fp.central_channel(), (fp.nt() - 1) / 2.0f, fp.pitch_value(), sourceZ0, fp.r_src_to_det(), fp.r_src_to_iso(), fp.n_proj_turn(), zDir, addProjections);
+	this->ctg = new CTGeom(orbit, orbitStart, fp.ns(), fp.nt(), nAngle, nAngleAdd, fp.ds(), fp.dt(), fp.central_channel(), (fp.nt() - 1) / 2.0f, fp.pitch_value(), sourceZ0, fp.r_src_to_iso(), fp.n_proj_turn(), zDir, addProjections);
 	this->ig = new ImgGeom(fp.nx(), fp.ny(), nz, fp.dx(), fp.dx(), fp.dz(), fp.offset_x(), fp.offset_y(), 0);
 	this->fi = new FileInfo(fp.raw_file_dir(), fp.data_interp_file(), fp.output_dir(), fp.output_name());
 	this->ri = new ReconInfo(fp.readings(), dataBeginPos, dataEndPos, allowedBegin, allowedEnd, startPos, endPos, reconStartPos, reconEndPos, nSlicesRecon, nSlicesBlock, nBlocks, fp.data_offset());

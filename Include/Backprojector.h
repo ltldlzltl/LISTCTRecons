@@ -18,3 +18,11 @@ public:
 	~HelicalConeBeamFanRebinBackprojectorGPU(){};
 	void backproject(const ReconData *mr);
 };
+
+class PiOriBackprojectorGPU:public Backprojector
+{
+public:
+	PiOriBackprojectorGPU(){};
+	~PiOriBackprojectorGPU(){};
+	void backproject(const ReconData *mr);
+};

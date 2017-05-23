@@ -5,6 +5,7 @@ class Filter;
 class Backprojector;
 class DataReader;
 class ReconData;
+class PreWeighting;
 
 class Reconstructor
 {
@@ -21,9 +22,10 @@ private:
 	Filter *flt;
 	Backprojector *bp;
 	DataReader *dr;
+	PreWeighting *pw;
 
 public:
-	FDKReconstructor(Rebiner *rbn, Filter *flt, Backprojector *bp);
+	FDKReconstructor(Rebiner *rbn, Filter *flt, Backprojector *bp, PreWeighting *pw);
 	~FDKReconstructor();
 	void reconstruct(const ReconData *mr);
 };

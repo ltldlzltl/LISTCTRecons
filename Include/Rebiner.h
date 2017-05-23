@@ -25,3 +25,11 @@ public:
 	~HelicalConeBeamFan2ParRebinerGPU(){};
 	void rebin(const ReconData *mr);
 };
+
+class PiOriRebiner:public Rebiner
+{
+public:
+    PiOriRebiner(){};
+    ~PiOriRebiner(){};
+    void rebin(const ReconData *mr);
+};

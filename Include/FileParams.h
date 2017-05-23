@@ -18,7 +18,7 @@ private:
 	float OffsetX, OffsetY;
 	int Readings;
 	int ViewOffset, DataOffset;
-	float RSrcToIso, RSrcToDet;
+	float RSrcToIso;
 	float CentralChannel;
 	int NProjTurn;
 	FileParams(){};
@@ -48,7 +48,6 @@ public:
 	int view_offset() const { return this->ViewOffset; };
 	int data_offset() const { return this->DataOffset; };
 	float r_src_to_iso() const { return this->RSrcToIso; };
-	float r_src_to_det() const { return this->RSrcToDet; };
 	float central_channel() const { return this->CentralChannel; };
 	int n_proj_turn() const { return this->NProjTurn; };
 };

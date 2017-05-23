@@ -7,11 +7,11 @@
 #include <cstdlib>
 using namespace std;
 
-string TokenNames[24] = { "RawDataDir", "DataInterpFile", "ViewAngleFile", "CouchPosFile", "OutputDir", "OutputName", "Ns", "Nt", "Ds", "Dt", "PitchValue", "Nx", "Ny", "Dx", "Dz", "OffsetX", "OffsetY", "Readings", "ViewOffset", "DataOffset", "RSrcToIso", "RSrcToDet", "CentralChannel", "NProjTurn" };
+string TokenNames[23] = { "RawDataDir", "DataInterpFile", "ViewAngleFile", "CouchPosFile", "OutputDir", "OutputName", "Ns", "Nt", "Ds", "Dt", "PitchValue", "Nx", "Ny", "Dx", "Dz", "OffsetX", "OffsetY", "Readings", "ViewOffset", "DataOffset", "RSrcToIso", "CentralChannel", "NProjTurn" };
 
-bool FileParams::enough_data(const bool haveData[24])
+bool FileParams::enough_data(const bool haveData[23])
 {
-	for (int i = 0; i < 24; i++)
+	for (int i = 0; i < 23; i++)
 	{
 		if (!haveData[i])
 		{
@@ -25,7 +25,7 @@ bool FileParams::enough_data(const bool haveData[24])
 
 void FileParams::readPrmFile(const string prmFileName)
 {
-	bool haveData[24] = { false };
+	bool haveData[23] = { false };
 
 	fstream file(prmFileName.c_str(), ios::in);
 	if (!file.is_open())
@@ -120,17 +120,13 @@ void FileParams::readPrmFile(const string prmFileName)
 			file >> RSrcToIso;
 			haveData[20] = true;
 		}
-		else if (token == "RSrcToDet:" ){
-			file >> RSrcToDet;
-			haveData[21] = true;
-		}
 		else if (token == "CentralChannel:" ){
 			file >> CentralChannel;
-			haveData[22] = true;
+			haveData[21] = true;
 		}
 		else if (token == "NProjTurn:" ){
 			file >> NProjTurn;
-			haveData[23] = true;
+			haveData[22] = true;
 		}
 	}
 	file.close();

@@ -5,15 +5,17 @@
 #include "Filter.h"
 #include "Backprojector.h"
 #include "DataReader.h"
+#include "PreWeighting.h"
 #include <iostream>
 using namespace std;
 
-FDKReconstructor::FDKReconstructor(Rebiner *rbn, Filter *flt, Backprojector *bp)
+FDKReconstructor::FDKReconstructor(Rebiner *rbn, Filter *flt, Backprojector *bp, PreWeighting *pw)
 {
 	this->rbn = rbn;
 	this->flt = flt;
 	this->bp = bp;
 	this->dr = new RawDataReader();
+	this->pw = pw;
 }
 
 FDKReconstructor::~FDKReconstructor()
@@ -22,6 +24,7 @@ FDKReconstructor::~FDKReconstructor()
 	delete this->flt;
 	delete this->bp;
 	delete this->dr;
+	delete this->pw;
 }
 
 void FDKReconstructor::reconstruct(const ReconData *mr)
@@ -34,6 +37,8 @@ void FDKReconstructor::reconstruct(const ReconData *mr)
 		dr->readData(mr);
 		cout << "Rebining..." << endl;
 		rbn->rebin(mr);
+		cout << "Weighting..." << endl;
+		pw->weighting(mr);
 		cout << "Filtering..." << endl;
 		flt->filter(mr);
 		cout << "Backprojecting..." << endl;

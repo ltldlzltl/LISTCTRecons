@@ -16,14 +16,14 @@ private:
 	float ds, dt;	//ͶӰ��ݼ��
 	float pitch;	//����Դ��������ת��ͬһ�Ƕ�ʱ��z�����ϵľ���
 	float sourceZ0;	//��0��view������Դ���0��ͼ��֮��ľ���
-	float dsd, dso;	//����Դ��̽�����ľ��룬����Դ���������ϵԭ��ľ���
+	float dso;	//����Դ��̽�����ľ��룬����Դ���������ϵԭ��ľ���
 	int nProjTurn;	//����Դ��תһȦ��view��
 	int zDir;		//couch_pos�ı䷽��1��-1
 	int addProjections;	//rebin����Ķ����view��nAngleAdd=nAngle+2*add_projections
 
 public:
 	CTGeom(){};
-	CTGeom(const float orbit, const float orbitStart, const int ns, const int nt, const int na, const int naa, const float ds, const float dt, const float ws, const float wt, const float pitch, const float sourceZ, const float dsd, const float dso, const int nProjTurn, const int zDir, const int addProjections)
+	CTGeom(const float orbit, const float orbitStart, const int ns, const int nt, const int na, const int naa, const float ds, const float dt, const float ws, const float wt, const float pitch, const float sourceZ, const float dso, const int nProjTurn, const int zDir, const int addProjections)
 	{
 		this->orbit = orbit;
 		this->orbitStart = orbitStart;
@@ -34,7 +34,6 @@ public:
 		this->dt = dt;
 		this->pitch = pitch;
 		this->sourceZ0 = sourceZ;
-		this->dsd = dsd;
 		this->dso = dso;
 
 		this->ws = ws;
@@ -57,7 +56,6 @@ public:
 		this->dt = ctg.dt;
 		this->pitch = ctg.pitch;
 		this->sourceZ0 = ctg.sourceZ0;
-		this->dsd = ctg.dsd;
 		this->dso = ctg.dso;
 
 		this->ws = ctg.ws;
@@ -94,8 +92,6 @@ public:
 		float source_z0() const { return this->sourceZ0; };
 	__device__ __host__
 		float dso_() const { return this->dso; };
-	__device__ __host__
-		float dsd_() const { return this->dsd; };
 	__device__ __host__
 		int n_proj_turn() const { return this->nProjTurn; };
 	__device__ __host__
